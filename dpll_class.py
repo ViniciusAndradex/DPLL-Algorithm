@@ -2,7 +2,7 @@ from typing import Union
 
 
 class Dpll:
-    def dpll(self, clausulas, valocacao):
+    def dpll(self, clausulas, valoracao):
         return self.dpll_check(clausulas, valoracao)
 
     def dpll_check(self, clausulas, valoracao):
@@ -30,3 +30,12 @@ class Dpll:
             clausulas = self.remove_clauses_with_literal(clausulas, literal)
             clausulas = self.remove_complement_with_literal(clausulas, literal)
         return clausulas, valoracao
+
+    @staticmethod
+    def has_unit_clause(clausulas):
+        for unit in clausulas:
+            if len(unit) == 1:
+                return unit
+
+    @staticmethod
+    def literal_unit(valoracao):
