@@ -33,13 +33,6 @@ class Dpll:
         return clausulas, valoracao
 
     @staticmethod
-    def more_frequent_literal(conjunto_clausulas):
-        for clausulas in conjunto_clausulas:
-            for clausula in clausulas:
-                Counter(clausula).most_common()
-
-
-    @staticmethod
     def has_unit_clause(clausula):
         for unit_clause in clausula:
             if len(unit_clause) == 1:
