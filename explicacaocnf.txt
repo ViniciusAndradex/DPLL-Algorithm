@@ -1,0 +1,14 @@
+Arquivo cnf:
+
+c representa comentário
+p representa as cláusulas cnf 3 (num de atomicas) 2 (num de clausulas)
+...
+
+
+o 0 representa sempre o final da linha
+
+caso tenha uma valoração satisfatível você deve criar um arquivo com a linha
+que representa as valorações corretas.
+
+Caso não haja nenhuma linha satisfatível deve ser criado um arquivo de linha única
+com a palavra UNSATISFIABLE

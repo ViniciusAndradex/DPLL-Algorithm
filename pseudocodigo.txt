@@ -1,0 +1,41 @@
+Algoritmo de busca que busca clausulas vazias buscando a satisfabilidade dos algoritmos
+
+Formula:
+	1. Simplificação de formulas - Setar valores atômicas em busca do vazio (Sem limitações de quantidade de simplificacoes).
+	2. Quando a clausula fica TRUE, toda ela é eliminado (Valor dado por simplificacao).
+	3. Se o literal (Valor setado) ficar FALSE somente o mesmo é eliminado.
+	4. Passo da propagação de unidade. (A clausula que só possui 1 literal, deve ser excluída antes [PRIORIADE]) AULA 2
+	5. É possível encontrar no final {{}}, ou seja o conjunto de clausulas é INSATISFATIVEL naquela interpretação.
+	5.1. O valor que buscamos são clausulas 100% vazias {}, SATISFATIVEL.
+
+	OBS: Valores que estao em clausulas que se tornam TRUE sao eliminados, por conta da clausula inteira ser eliminada.
+
+Pseudocodigo:
+	DPLL(S -> Conjunto de formulas ja passados para clausulas.):
+		return DPLL_check(S, {})
+
+	DPLL_check(S, valoracao):
+		s, valoracao = unit_propagation(S, valoracao) -> Verifica a clausula unitaria e elimina (BCP)
+		if s = {}:
+			return valoracao
+		if {} in s: -> Verifica se o conjunto da valoracao deixou casos onde nem todas as claúsulas foram eliminados
+			return False
+		atomic = get_atomic(s) -> Qualquer atomica do conjunto, literal do menor clausula.
+		s' = s U {{atomic}} -> s' e copia de s, literal mais frequente. Combinacao menor literal e mais frequente. HEURISTICAS
+		s'' = s U {{not atomic}}
+
+		result = DPLL_check(s', valoração)
+
+		if result != False:
+			return result
+		return DPLL_check('s', valoracao)
+
+	# Pure literals
+
+	unit_propagation(s, valoracao):
+		while has_unit_clause(s):
+			l = literal_unit(s)
+			valoracao = valoracao U {l}
+			s = remove_clauses_with_literal(s, l) -> remove clausulas que possuem l.
+			s = remove_complement_literal(s,l) -> remove o complemento usado para a remoção
+		return s, valoracao
