@@ -1,6 +1,4 @@
 from typing import Union
-from collections import Counter
-
 
 class Dpll:
     def dpll(self, clausulas, valoracao):
@@ -28,8 +26,9 @@ class Dpll:
         while self.has_unit_clause(clausulas):
             literal = self.literal_unit(clausulas)
             valoracao = Union[valoracao, literal]
+            #Remover todas as clausulas que tem o literal e remover o complemento desse literal (o valor inverso do literal)
             clausulas = self.remove_clauses_with_literal(clausulas, literal)
-            clausulas = self.remove_complement_with_literal(clausulas, literal)
+            clausulas = self._remove_complement_literal(clausulas, literal)
         return clausulas, valoracao
 
     @staticmethod
@@ -48,4 +47,5 @@ class Dpll:
 
     @staticmethod
     def _remove_complement_literal(clauses, literal):
+        #Procurar os literais de valor inverso ao literal e retiralos das clausulas
         return set(map(lambda c: c.difference({literal * -1}), clauses))
