@@ -1,4 +1,5 @@
 from typing import Union
+from collections import Counter
 
 
 class Dpll:
@@ -32,6 +33,13 @@ class Dpll:
         return clausulas, valoracao
 
     @staticmethod
+    def more_frequent_literal(conjunto_clausulas):
+        for clausulas in conjunto_clausulas:
+            for clausula in clausulas:
+                Counter(clausula).most_common()
+
+
+    @staticmethod
     def has_unit_clause(clausula):
         for unit_clause in clausula:
             if len(unit_clause) == 1:
@@ -43,4 +51,8 @@ class Dpll:
 
     @staticmethod
     def remove_clauses_with_literal(clausula, literal):
-        pass
+        return set(filter(lambda c: literal not in c, clausula))
+
+    @staticmethod
+    def _remove_complement_literal(clauses, literal):
+        return set(map(lambda c: c.difference({literal * -1}), clauses))
