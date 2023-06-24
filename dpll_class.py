@@ -25,17 +25,22 @@ class Dpll:
 
     def unit_propagation(self, clausulas, valoracao):
         while self.has_unit_clause(clausulas):
-            literal = self.literal_unit(valoracao)
+            literal = self.literal_unit(clausulas)
             valoracao = Union[valoracao, literal]
             clausulas = self.remove_clauses_with_literal(clausulas, literal)
             clausulas = self.remove_complement_with_literal(clausulas, literal)
         return clausulas, valoracao
 
     @staticmethod
-    def has_unit_clause(clausulas):
-        for unit in clausulas:
-            if len(unit) == 1:
-                return unit
+    def has_unit_clause(clausula):
+        for unit_clause in clausula:
+            if len(unit_clause) == 1:
+                return unit_clause
 
     @staticmethod
-    def literal_unit(valoracao):
+    def literal_unit(clausula):
+        return clausula[0]
+
+    @staticmethod
+    def remove_clauses_with_literal(clausula, literal):
+        pass
