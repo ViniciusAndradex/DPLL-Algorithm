@@ -2,7 +2,6 @@ from dpll_class import Dpll
 
 clauses = [{1, 2, 3}, {-1, 2, 3}, {3, 1, 2}]
 
-dppl = Dpll();
+dppl = Dpll()
 
-teste = dppl.dpll_check(clauses, 1)
-
+teste = dppl.dpll(clauses, 1)

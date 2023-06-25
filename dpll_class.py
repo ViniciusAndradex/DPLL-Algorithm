@@ -9,12 +9,13 @@ class Dpll:
 
         if clausulas == {}:
             return valoracao
-        if {} in valoracao:
+        if type(valoracao) == dict and len(valoracao) == 0:
             return False
 
         atomic = self.get_atomic(clausulas)
-        clausula1 = Union[clausulas, {{atomic}}]
-        clausula2 = Union[clausulas, {{not atomic}}]
+        print(atomic, 210310230120)
+        clausula1 = clausulas.append(atomic)
+        clausula2 = clausulas.append(atomic * -1)
 
         result = self.dpll_check(clausula1, valoracao)
 
@@ -23,12 +24,15 @@ class Dpll:
         return self.dpll_check(clausula2, valoracao)
 
     def unit_propagation(self, clausulas, valoracao):
-        while self.has_unit_clause(clausulas):
+        while True:
             literal = self.literal_unit(clausulas)
-            valoracao = Union[valoracao, literal]
-            #Remover todas as clausulas que tem o literal e remover o complemento desse literal (o valor inverso do literal)
+            if not literal:
+                break
+            valoracao = literal.add(valoracao)
+            # Remover todas as clausulas que tem o literal e remover o complemento desse literal (o valor inverso do literal)
             clausulas = self.remove_clauses_with_literal(clausulas, literal)
-            clausulas = self._remove_complement_literal(clausulas, literal)
+            if clausulas is not None:
+                clausulas = self._remove_complement_literal(clausulas, literal)
         return clausulas, valoracao
 
     @staticmethod
@@ -38,14 +42,24 @@ class Dpll:
                 return unit_clause
 
     @staticmethod
-    def literal_unit(clausula):
-        return clausula[0]
+    def get_atomic(clausulas):
+        return 1
+
+    @staticmethod
+    def literal_unit(clausulas):
+        if clausulas is not None:
+            for clausula in clausulas:
+                if len(clausula) == 1:
+                    return list(clausula)[0]
 
     @staticmethod
     def remove_clauses_with_literal(clausula, literal):
-        return set(filter(lambda c: literal not in c, clausula))
+        sette = set();
+        return sette.add(filter(lambda c: literal not in c, clausula))
 
     @staticmethod
     def _remove_complement_literal(clauses, literal):
-        #Procurar os literais de valor inverso ao literal e retiralos das clausulas
-        return set(map(lambda c: c.difference({literal * -1}), clauses))
+        # Procurar os literais de valor inverso ao literal e retiralos das clausulas
+        sette = set();
+        # Clauses é none
+        return sette.add(map(lambda c: c.difference({literal * -1}), clauses))
