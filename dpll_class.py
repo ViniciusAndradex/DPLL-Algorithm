@@ -12,16 +12,17 @@ class Dpll:
             return f'Satisfatible {valoracao}'
 
         if set() in clausulas:
-            return False
+            return 'UNSATISFIABLE'
 
         atomic, position = self.get_atomic(clausulas)
-        clausula1 = [clausulas[position].union({atomic})]
+        clausula1, clausula2 = clausulas.copy(), clausulas.copy()
+        clausula1.append({atomic})
+        clausula2.append({atomic * -1})
 
-        result = self.dpll_check(clausula1, valoracao.copy())
+        result = self.dpll_check(clausula1, valoracao)
 
-        if result:
+        if result is not False:
             return result
-        clausula2 = [clausulas[position].union({atomic * -1})]
         return self.dpll_check(clausula2, valoracao)
 
     def unit_propagation(self, clausulas, valoracao):
