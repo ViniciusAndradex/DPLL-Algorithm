@@ -11,27 +11,21 @@ class Dpll:
         if clausulas == []:
             return valoracao
 
-        if clausulas is not None and set in clausulas:
-            return False
+        if clausulas is not None and set() in clausulas:
+            return 'Unsatisfatible'
 
-        clausula1, clausula2, result = None, None, None
+        atomic, position = self.get_atomic(clausulas)
+        clausula1 = clausulas[position].union({atomic})
+        clausula2 = clausulas[position].union({atomic * -1})
 
-
-        if self.get_atomic(clausulas):
-            atomic, position = self.get_atomic(clausulas)
-
-            clausula1 = clausulas[position].union({atomic})
-            clausula2 = clausulas[position].union({atomic * -1})
-
-            result = self.dpll_check(clausula1, valoracao)
+        result = self.dpll_check(clausula1, valoracao)
 
         if result:
             return result
         return self.dpll_check(clausula2, valoracao)
 
     def unit_propagation(self, clausulas, valoracao):
-        literal = 0
-        while literal is not None:
+        while True:
             literal = self.literal_unit(clausulas)
             if literal is None:
                 break
@@ -50,9 +44,8 @@ class Dpll:
     @staticmethod
     def get_atomic(clausulas):
         # Clausula -> 1 atomica da clausula
-        if clausulas is set:
-            for position, clausula in enumerate(clausulas):
-                return list(clausula)[0], position
+        for position, clausula in enumerate(clausulas):
+            return list(clausula)[position], position
 
     @staticmethod
     def literal_unit(clausulas):

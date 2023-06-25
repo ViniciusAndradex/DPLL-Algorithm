@@ -5,3 +5,4 @@ clauses = [{1}, {1, 2, 3}, {-1, 2, 3}, {4, 1, 2}]
 dppl = Dpll()
 
 teste = dppl.dpll(clauses, set())
+print('Teste')
