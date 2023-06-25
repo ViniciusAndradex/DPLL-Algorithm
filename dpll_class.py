@@ -1,5 +1,6 @@
 from typing import Union
 
+
 class Dpll:
     def dpll(self, clausulas, valoracao):
         return self.dpll_check(clausulas, valoracao)
@@ -7,16 +8,18 @@ class Dpll:
     def dpll_check(self, clausulas, valoracao):
         clausulas, valoracao = self.unit_propagation(clausulas, valoracao)
 
-        if clausulas == {}:
+        if clausulas == []:
             return valoracao
-        if type(valoracao) == dict and len(valoracao) == 0:
+        # if type(valoracao) == dict and len(valoracao) == 0:
+        if {} in clausulas:
             return False
 
-        atomic = self.get_atomic(clausulas)
-        print(atomic, 210310230120)
-        clausula1 = clausulas.append(atomic)
-        clausula2 = clausulas.append(atomic * -1)
+        atomic, position = self.get_atomic(clausulas)
 
+        clausula1 = clausulas[position].union({atomic})
+        print('clausula 1', clausula1)
+        clausula2 = clausulas[position].union({atomic * -1})
+        print('clausula 2', clausula2)
         result = self.dpll_check(clausula1, valoracao)
 
         if result:
@@ -43,18 +46,21 @@ class Dpll:
 
     @staticmethod
     def get_atomic(clausulas):
-        return 1
+        # Clausula -> 1 atomica da clausula
+        for position, clausula in enumerate(clausulas):
+            return list(clausula)[0], position
 
     @staticmethod
     def literal_unit(clausulas):
         if clausulas is not None:
             for clausula in clausulas:
+                print(type(clausula))
                 if len(clausula) == 1:
                     return list(clausula)[0]
 
     @staticmethod
     def remove_clauses_with_literal(clausula, literal):
-        sette = set();
+        sette = set()
         return sette.add(filter(lambda c: literal not in c, clausula))
 
     @staticmethod

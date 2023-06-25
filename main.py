@@ -4,4 +4,4 @@ clauses = [{1, 2, 3}, {-1, 2, 3}, {3, 1, 2}]
 
 dppl = Dpll()
 
-teste = dppl.dpll(clauses, 1)
+teste = dppl.dpll(clauses, [])
