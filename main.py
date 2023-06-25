@@ -1,8 +1,8 @@
 from dpll_class import Dpll
 
-clauses = [{1}, {1, 2, 3}, {-1, 2, 3}, {4, 1, 2}]
+clauses = [{1}, {1, 2, 3}, {-1, 2, 3}, {4, 1, 2}, {2}]
 
 dppl = Dpll()
 
 teste = dppl.dpll(clauses, set())
-print('Teste')
+print(teste)

@@ -8,27 +8,25 @@ class Dpll:
     def dpll_check(self, clausulas, valoracao):
         clausulas, valoracao = self.unit_propagation(clausulas, valoracao)
 
-        if clausulas == []:
-            return valoracao
+        if len(clausulas) == 0:
+            return f'Satisfatible {valoracao}'
 
-        if clausulas is not None and set() in clausulas:
-            return 'Unsatisfatible'
+        if set() in clausulas:
+            return False
 
         atomic, position = self.get_atomic(clausulas)
-        clausula1 = clausulas[position].union({atomic})
-        clausula2 = clausulas[position].union({atomic * -1})
+        clausula1 = [clausulas[position].union({atomic})]
 
-        result = self.dpll_check(clausula1, valoracao)
+        result = self.dpll_check(clausula1, valoracao.copy())
 
         if result:
             return result
+        clausula2 = [clausulas[position].union({atomic * -1})]
         return self.dpll_check(clausula2, valoracao)
 
     def unit_propagation(self, clausulas, valoracao):
-        while True:
+        while self.has_unit_clause(clausulas):
             literal = self.literal_unit(clausulas)
-            if literal is None:
-                break
             # Remover todas as clausulas que tem o literal e remover o complemento desse literal (o valor inverso do literal)
             valoracao = valoracao.union({literal})
             clausulas = self.remove_clauses_with_literal(clausulas, literal)
@@ -40,6 +38,7 @@ class Dpll:
         for unit_clause in clausula:
             if len(unit_clause) == 1:
                 return unit_clause
+        return None
 
     @staticmethod
     def get_atomic(clausulas):
@@ -58,7 +57,7 @@ class Dpll:
         for position, clause in enumerate(clausula):
             if literal in clause:
                 clausula.pop(position)
-                self.remove_clauses_with_literal(clausula, literal)
+                clausula = self.remove_clauses_with_literal(clausula, literal)
         return clausula
 
     @staticmethod
