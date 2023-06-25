@@ -35,9 +35,10 @@ class Dpll:
             print(clausulas, "abacaxi")
             literal = self.literal_unit(clausulas)
             print(clausulas, "amendoin")
-            if literal == None:
-                break
+            if literal is None:
                 print('break')
+                print(clausulas, "batata")
+                break
             print(clausulas, "abobora")
             # Remover todas as clausulas que tem o literal e remover o complemento desse literal (o valor inverso do literal)
             valoracao = valoracao.union({literal})
