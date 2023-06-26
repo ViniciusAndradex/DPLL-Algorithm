@@ -1,7 +1,7 @@
 from utils.formula import Atom, Not, And
+from .allocator import AllocatorConstraintBase
 
-
-class ScheduleConstraint():
+class ScheduleConstraint(AllocatorConstraintBase):
     def __init__(self, disciplines, schedules_quantity):
         super().__init__(disciplines, schedules_quantity)
 

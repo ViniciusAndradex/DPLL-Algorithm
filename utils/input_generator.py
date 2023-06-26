@@ -6,7 +6,7 @@ from utils.discipline import Discipline
 from constraints.composite import ConstraintComposite
 from constraints import constraints
 
-path = os.path.abspath('../../inputs/disciplinecsv/text.csv')
+path = os.path.abspath('../inputs/disciplinecsv/text.csv')
 
 def generate_disciplines():
     main_file = f'{path}/1.txt'
@@ -33,7 +33,7 @@ def atoms_map(n_disciplines, n_schedules):
     return dict_map
 
 def get_disciplines():
-    path = os.path.abspath('../../inputs')
+    path = os.path.relpath("inputs/disciplinecsv/")
     filenames = sorted(os.listdir(path), key=len)
     disciplines = []
     for filename in filenames:

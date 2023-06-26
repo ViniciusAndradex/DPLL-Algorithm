@@ -1,0 +1,31 @@
+s1
+Circuitos Digitais, Carlos
+Fundamentos de Programacao, Daniel
+s2
+Laboratorio de Programacao, Samuel
+s3
+POO, Marcio
+Programacao Linear, Ana
+s4
+Logica para Computacao, Joao
+Comunicacao de Dados, Jose
+Estruturas de Dados, Tomas
+s5
+Analise de Algoritmos, Alice
+Grafos, Alice
+Sistemas Operacionais, Carlos
+Eletronica, Santos
+Engenharia de Software, Marcio
+s6
+Linguagens de Programacao, Fernanda
+Teoria da Computacao, Joao
+Sistemas Embarcados, Santos
+Redes, Tomas
+s7
+Compiladores, Beatriz
+Projeto de Sistemas, Alice
+Inteligencia Artificial, Amanda
+s8
+Gestao de Projetos, Daniel
+Processamento de Imagens, Beatriz
+Inteligencia Computacional Aplicada, Amanda
