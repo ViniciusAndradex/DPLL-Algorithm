@@ -11,12 +11,12 @@ class Dpll:
 
         if len(clausulas) == 0:
             with open(f'cnf-formulas/satisfiable/satisfiable_{datetime.datetime.now()}', 'w') as archive:
-                archive.write(str(valoracao))
+                archive.writelines(str(valoracao))
 
         if set() in clausulas:
             return 'UNSATISFIABLE'
 
-        atomic, position = self.get_atomic(clausulas)
+        atomic = self.get_atomic(clausulas)
         clausula1, clausula2 = clausulas.copy(), clausulas.copy()
         clausula1.append({atomic})
         clausula2.append({atomic * -1})
@@ -47,7 +47,7 @@ class Dpll:
     def get_atomic(clausulas):
         # Clausula -> 1 atomica da clausula
         for position, clausula in enumerate(clausulas):
-            return list(clausula)[position], position
+            return list(clausula)[position]
 
     @staticmethod
     def literal_unit(clausulas):
