@@ -18,7 +18,7 @@ class Dpll:
 
             return
         if set() in clausulas:
-            with open(f'cnf-formulas/satisfiable/unsatisfiable_{datetime.datetime.now()}.cnf', 'w') as archive:
+            with open(f'cnf-formulas/unsatisfiable/unsatisfiable_{datetime.datetime.now()}.cnf', 'w') as archive:
                 archive.write('UNSATISFIABLE')
             return
 
