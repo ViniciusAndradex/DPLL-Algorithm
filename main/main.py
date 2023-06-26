@@ -5,4 +5,7 @@ dppl = Dpll()
 
 clauses = cnf_to_list("inputs/teste_4.cnf")
 
-teste = dppl.dpll(clauses, set())
+dppl.dpll(clauses, set())
+
+
+
