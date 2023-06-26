@@ -1,5 +1,4 @@
 from typing import Union
-import datetime
 
 
 class Dpll:
@@ -10,8 +9,7 @@ class Dpll:
         clausulas, valoracao = self.unit_propagation(clausulas, valoracao)
 
         if len(clausulas) == 0:
-            with open(f'cnf-formulas/satisfiable/satisfiable_{datetime.datetime.now()}', 'w') as archive:
-                archive.writelines(str(valoracao))
+            return f'Satisfatible {valoracao}'
 
         if set() in clausulas:
             return 'UNSATISFIABLE'
