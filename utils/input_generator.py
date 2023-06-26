@@ -2,6 +2,9 @@ import os
 import csv
 import random
 from utils.formula import Atom
+from utils.discipline import Discipline
+from constraints.composite import ConstraintComposite
+from constraints import constraints
 
 path = os.path.abspath('../../inputs/disciplinecsv/text.csv')
 
@@ -28,3 +31,18 @@ def atoms_map(n_disciplines, n_schedules):
             count += 1
             dict_map[Atom(f'{i + 1}_{j + 1}')] = count
     return dict_map
+
+def get_disciplines():
+    path = os.path.abspath('../../inputs')
+    filenames = sorted(os.listdir(path), key=len)
+    disciplines = []
+    for filename in filenames:
+        with open(f'{path}/{filename}', newline='') as csvfile:
+            reader = csv.DictReader(csvfile)
+            disciplines.append([Discipline(**line) for line in reader])
+    return disciplines
+
+def to_model(disciplines, n_schedules):
+    composite = ConstraintComposite()
+    composite.add_all([constraint(disciplines, n_schedules) for constraint in constraints])
+    return composite.apply()
