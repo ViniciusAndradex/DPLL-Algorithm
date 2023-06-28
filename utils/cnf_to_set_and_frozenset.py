@@ -14,4 +14,8 @@ def cnf_to_list(archive):
             clauses.insert(pos, set())
             for item in clause:
                 clauses[pos].add(int(item))
-    return clauses
+        tupla = tuple(clauses)
+        # print({frozenset(tupla)})
+        frozen = set(map(frozenset, tupla))
+        # clauses = frozenset(tuple(clauses))
+    return frozen
